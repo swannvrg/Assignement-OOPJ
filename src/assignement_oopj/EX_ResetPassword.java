@@ -48,7 +48,8 @@ public class EX_ResetPassword extends JFrame {
         add(OTPLabel);
 
         OTPtext = new JLabel("Please enter the code sent by email:");
-        OTPtext.setBounds(30, 90, 300, 30);
+        OTPtext.setBounds(20, 90, 300, 30);
+        OTPtext.setFont(new Font("Arial", Font.ITALIC, 12));
         add(OTPtext);
 
         OTPInput = new JTextField("");
