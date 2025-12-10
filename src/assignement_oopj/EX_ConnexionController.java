@@ -137,10 +137,14 @@ public class EX_ConnexionController {
             // SIGN UP logic
             if (view.getSignRadio().isSelected()) {
                 //all the rules before write the sign up
+                 // check if any field is empty
+                 if (fullName_user.isEmpty() || id_user.isEmpty() || email_user.isEmpty() || passwd_user.isEmpty() || confirmPasswd_user.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Please do not leave any fields empty", "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
                 //rule for if id already exist
-                if (EX_rules.exist_ID(id_user)) {
+                else if (EX_rules.exist_ID(id_user)) {
                     JOptionPane.showMessageDialog(null, "ID already used", "Erreur", JOptionPane.ERROR_MESSAGE);
-                } 
+                }
                 //rule for if email format is valid
                 else if (!EX_rules.rule_Email(email_user)) { 
                     JOptionPane.showMessageDialog(null, "The email format is invalid", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -162,9 +166,9 @@ public class EX_ConnexionController {
                             + "Rules : \n "
                             + "ID : must be 5 – 15 characters long, letters and numbers \n"
                             + "Password : must be 8 – 16 characters long, a combination of Uppercase/Lowercase/Numbers and special symbols (*, !, &, @, #, $, %).",
-                            "Erreur", JOptionPane.ERROR_MESSAGE);
-                    
+                            "Erreur", JOptionPane.ERROR_MESSAGE); 
                 } 
+                
                 //SIGN UP IF ALL VALID
                 //signup is write in this part if all is good
                 else if (EX_rules.rule_ID(id_user) && EX_rules.rule_Passwd(passwd_user )) {
@@ -181,22 +185,32 @@ public class EX_ConnexionController {
                     
                 }
 
-            } else { // LOGIN logic
-                if (EX_login.exist_Login(id_user, passwd_user)) {
+            } else { 
+                // LOGIN logic
+                // check if the fields are empty first
+                if (id_user.isEmpty() || passwd_user.isEmpty()) {
+                    JOptionPane.showMessageDialog(null,
+                            "Please do not leave any fields empty",
+                            "Erreur", JOptionPane.ERROR_MESSAGE);
+                }
+                // check if login exists
+                else if (EX_login.exist_Login(id_user, passwd_user)) {
                     EX_Dashboard.openAfterLoginWindow(id_user);
                     view.dispose();
-                    JOptionPane.showMessageDialog(null, "Connexion sucessful", "Bienvenue", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Connexion successful", "Bienvenue", JOptionPane.INFORMATION_MESSAGE);
 
                     view.getInputID().setText("");
                     view.getInputPasswd().setText("");
 
                     Ex_write.logTimestamp(id_user, log_action_user);
-                } else {
+                } 
+                else { // if the login fails (invalid ID or password)
                     JOptionPane.showMessageDialog(null,
                             "Connexion failed \n ID or PASSWORD are invalid",
                             "Erreur", JOptionPane.ERROR_MESSAGE);
                 }
             }
+
         });
 
         // cancel button
