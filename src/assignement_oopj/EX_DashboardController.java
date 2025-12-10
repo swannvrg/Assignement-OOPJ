@@ -64,7 +64,7 @@ public class EX_DashboardController {
             String id_user = view.getIdUser();
              // close the window
             view.dispose();
-            // open edit popup
+            // open edit popup => view
             EX_EditProfile editView = new EX_EditProfile(id_user);
 
             // call the controller
