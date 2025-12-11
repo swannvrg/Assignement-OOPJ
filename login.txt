@@ -4,3 +4,4 @@ ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqdda
 ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqddann215@gmail.com; ROLE : Academic Officer
 ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqddann215@gmail.com; ROLE : Academic Officer
 ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqddann215@gmail.com; ROLE : Academic Officer
+ID USER : testaaz; PASSWORD : @azArty12345; FULL NAME : dddfzdz; EMAIL : swsqqddann21s5@gmail.com; ROLE : Course Administrator
