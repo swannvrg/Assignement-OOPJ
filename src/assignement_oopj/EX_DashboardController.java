@@ -191,10 +191,13 @@ public class EX_DashboardController {
          // listener to open Course Recovery
         view.getCourseRecovery().addActionListener(e -> {
             String id_user = view.getIdUser();
-            // close the window //when its work to close the dashboard popup
-            //view.dispose();
+           
+            view.dispose();
             System.out.println("btn Course Recovery fonctionne");
-            
+            //lauch recovery plan
+            SwingUtilities.invokeLater(() -> {
+                new RecoveryPlanGUI().setVisible(true);
+            });
             //binary log
             String log_action_user = "OPEN COURSE RECOVERY";
             Ex_write.logTimestamp(id_user, log_action_user);
