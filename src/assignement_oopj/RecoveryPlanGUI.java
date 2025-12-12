@@ -14,8 +14,10 @@ public class RecoveryPlanGUI extends JFrame {
     private JTextArea milestoneArea, recommendationArea, displayArea, editMilestoneArea, editRecommendationArea;
     private JTextField weekField, taskField, recommendationField;
     private JComboBox<String> gradeCombo;
+    private final String id_user;
     
-    public RecoveryPlanGUI() {
+    public RecoveryPlanGUI(String id_user) {
+        this.id_user = id_user;
         // Load from CSV or use sample
         students = FileReaderUtil.readStudentsFromFile("student_information (1).csv");
         courses = FileReaderUtil.readCoursesFromFile("course_information-APU-LP-0650 (2).csv");
@@ -53,9 +55,19 @@ public class RecoveryPlanGUI extends JFrame {
     private void setupGUI() {
         setTitle("Recovery Plan System");
         setSize(900, 700);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
         
+        JPanel topBar = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton btnBack = new JButton("Back to Dashboard");
+        topBar.add(btnBack);
+        add(topBar, BorderLayout.NORTH);
+            btnBack.addActionListener(e -> {
+        autoSaveToCSV(); // ✅ sauvegarde avant de quitter
+        EX_Dashboard.openAfterLoginWindow(id_user);
+        dispose();
+    });
+
         // Create tabbed pane
         JTabbedPane tabs = new JTabbedPane();
         tabs.addTab("Create", createTab());
@@ -63,6 +75,8 @@ public class RecoveryPlanGUI extends JFrame {
         tabs.addTab("View", viewTab());
         
         add(tabs, BorderLayout.CENTER);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
     
     private JPanel createTab() {

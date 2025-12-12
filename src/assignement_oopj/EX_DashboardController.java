@@ -164,15 +164,17 @@ public class EX_DashboardController {
             Ex_write.logTimestamp(id_user, log_action_user);
         });
         
-         // listener to open EMail Notification
+         // listener to open Academic Performance Reporting
         view.getEmailNotification().addActionListener(e -> {
             String id_user = view.getIdUser();
             // close the window //when its work to close the dashboard popup
-            //view.dispose();
-            System.out.println("btn mail notif fonctionne");
+            view.dispose();
+            
+             // Ouvre la fenêtre CRS Report & Email System
+              new PerfReportGUI(id_user);
             
             //binary log
-            String log_action_user = "OPEN EMAIL NOTIFICATION";
+            String log_action_user = "OPEN ACADEMIC PERFORMANCE REPORTING";
             Ex_write.logTimestamp(id_user, log_action_user);
         });
         
@@ -196,7 +198,7 @@ public class EX_DashboardController {
             System.out.println("btn Course Recovery fonctionne");
             //lauch recovery plan
             SwingUtilities.invokeLater(() -> {
-                new RecoveryPlanGUI().setVisible(true);
+                new RecoveryPlanGUI(id_user);
             });
             //binary log
             String log_action_user = "OPEN COURSE RECOVERY";

@@ -84,7 +84,7 @@ public class EX_Dashboard extends JFrame {
     btnMailLogCheck.setVisible(false);
     add(btnMailLogCheck);
 
-    EmailNotification = new JButton("Email Notification");
+    EmailNotification = new JButton("Academic Perf Report ");
     EmailNotification.setBounds(100, 130, 200, 30);
     EmailNotification.setVisible(false);
     add(EmailNotification);
