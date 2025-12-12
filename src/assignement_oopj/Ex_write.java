@@ -18,10 +18,17 @@ import java.io.IOException;
 
 public class Ex_write {
     //this methode write into the login.txt file all the info about sign up
-    public static void writeToFile(String fullName_user, String id_user, String passwd_user, String email_user, String role_user ) {
+    public static void writeToFile(String fullName_user, String id_user, 
+            String passwd_user, String email_user, String role_user ) {
         try(FileWriter myWriter = new FileWriter("login.txt", true)){
             //write the line in the login file
-            myWriter.write("ID USER : " + id_user + "; PASSWORD : " + passwd_user+"; FULL NAME : "+ fullName_user + "; EMAIL : "+ email_user + "; ROLE : " + role_user + "\n" );
+            myWriter.write("ID USER : " 
+                    + id_user 
+                    + "; PASSWORD : " 
+                    + passwd_user+"; FULL NAME : "
+                    + fullName_user + "; EMAIL : "
+                    + email_user + "; ROLE : " 
+                    + role_user + "\n" );
             System.out.println("Sucess write");
         }catch (IOException e) {
                System.out.println("An error occurred");
