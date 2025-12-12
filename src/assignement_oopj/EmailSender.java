@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package assignement_oopj;
+=======
+package com.crs;
+>>>>>>> 01bdfed0f975cb9adbd96cad8b180ff91c6d67e8
 
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
@@ -52,3 +56,7 @@ public class EmailSender {
         System.out.println("Email sent successfully");
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 01bdfed0f975cb9adbd96cad8b180ff91c6d67e8
