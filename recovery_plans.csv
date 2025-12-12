@@ -1,0 +1,3 @@
+StudentID,StudentName,CourseID,CourseName,Status,Grade,Milestones,Recommendations
+S001,Fiona Smith,C101,Algorithms,In Progress,B,Week 1: practice;Week 2: Test;Week 3: Final Exam,work hard
+S001,Fiona Smith,C101,Algorithms,Pending,Not Graded,Week Week 1: Practice;Week Week 2: Test 1;Week Week 3: Final exam,

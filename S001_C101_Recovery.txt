@@ -1,0 +1,13 @@
+=== RECOVERY PLAN ===
+Student: Fiona Smith (S001)
+Course: Algorithms (C101)
+Status: In Progress
+Grade: B
+
+=== RECOMMENDATIONS ===
+- work hard
+
+=== MILESTONES ===
+- Week 1: practice
+- Week 2: Test
+- Week 3: Final Exam
