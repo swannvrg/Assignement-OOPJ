@@ -134,13 +134,14 @@ public class EX_EditProfileController {
             }
         });
        view.getBtnResetPasswd().addActionListener(e -> {
+           
             String id_user = view.getOriginalId();  // Récupérer l'ID utilisateur
 
             // Récupérer l'email de l'utilisateur depuis la base de données
             String userEmail = Ex_write.getUserData(id_user)[1];  // Récupère l'email via l'ID utilisateur
 
             // Générer un token (OTP)
-            String token = EmailHandler.generateOTP();  // Génère un OTP unique pour le réinitialisation du mot de passe
+            String token = EmailService.generateOTP();  // Génère un OTP unique pour le réinitialisation du mot de passe
 
             // Créer une instance de EmailService pour envoyer l'email
             EmailService emailService = new EmailService();
@@ -155,14 +156,15 @@ public class EX_EditProfileController {
                 view.dispose();
 
                 // Ouvrir la vue de réinitialisation de mot de passe
-                EX_ResetPassword editView = new EX_ResetPassword(id_user);
+                EX_ResetPassword editView = new EX_ResetPassword(id_user, token);
 
                 // Appeler le contrôleur pour la vue de réinitialisation
                 new EX_ResetPasswordController(editView);
                 // Log de l'action (réinitialisation du mot de passe)
-            Ex_write.logTimestamp(id_user, "OTP SENT RESET PASSWORD");
+            Ex_write.logTimestamp(id_user, "OTP SENT FOR RESET PASSWORD");
             } else {
                     JOptionPane.showMessageDialog(null, "There was an issue sending the OTP. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                    Ex_write.logTimestamp(id_user, "OTP FAILED TO SENT FOR RESET PASSWORD");
             }
 
             

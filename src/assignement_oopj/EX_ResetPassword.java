@@ -12,14 +12,19 @@ import java.awt.Font;
 public class EX_ResetPassword extends JFrame {
     
     private final String userID, userEmail;
+    private String sentOTP;
     private JLabel textLabel, textLabel2, OTPLabel, OTPtext, NewPasswdLabel,NewPasswdLabelConfirm ;
-    private JTextField OTPInput,NewPasswdInput, NewPasswdConfirmInput;
-    private JButton btnSave, btnCancel;
+    private JTextField OTPInput;
+    private JPasswordField NewPasswdInput, NewPasswdConfirmInput;
+    private JButton btnSave, btnCancel, btnResendOtp, toggleNewPasswordButton, toggleConfirmPasswordButton;
+    public void setExpectedOtp(String otp) { this.sentOTP = otp; }
+    public String getExpectedOtp() { return sentOTP; }
     
-    public EX_ResetPassword(String idUser){
+    public EX_ResetPassword(String idUser, String sentOTP){
         this.userID = idUser;
         String[] data = Ex_write.getUserData(idUser);
         this.userEmail = data [1];
+        this.sentOTP = sentOTP;
         
         setTitle("Reset Password");
         setSize(400, 370);
@@ -53,26 +58,39 @@ public class EX_ResetPassword extends JFrame {
         add(OTPtext);
 
         OTPInput = new JTextField("");
-        OTPInput.setBounds(20, 120, 300, 30);
+        OTPInput.setBounds(20, 120, 170, 30);
         add(OTPInput);
+       
+        btnResendOtp = new JButton("Resend OTP");
+        btnResendOtp.setBounds(200, 120, 130, 30);
+        btnResendOtp.setEnabled(false); 
+        add(btnResendOtp);
 
         // NEWPasswd section
         NewPasswdLabel = new JLabel("NEW PASSWORD");
         NewPasswdLabel.setBounds(20, 150, 300, 30);
         add(NewPasswdLabel);
 
-        NewPasswdInput = new JTextField();
-        NewPasswdInput.setBounds(20, 180, 300, 30);
+        NewPasswdInput = new JPasswordField();
+        NewPasswdInput.setBounds(20, 180, 200, 30);
         add(NewPasswdInput);
+
+        toggleNewPasswordButton = new JButton("Show");
+        toggleNewPasswordButton.setBounds(230, 180, 100, 30);
+        add(toggleNewPasswordButton);
 
         // NEWPasswdConfirm section
         NewPasswdLabelConfirm = new JLabel("CONFIRM NEW PASSWORD");
         NewPasswdLabelConfirm.setBounds(20, 210, 300, 30);
         add(NewPasswdLabelConfirm);
 
-        NewPasswdConfirmInput = new JTextField();
-        NewPasswdConfirmInput.setBounds(20, 240, 300, 30);
+        NewPasswdConfirmInput = new JPasswordField();
+        NewPasswdConfirmInput.setBounds(20, 240, 200, 30);
         add(NewPasswdConfirmInput);
+
+        toggleConfirmPasswordButton = new JButton("Show");
+        toggleConfirmPasswordButton.setBounds(230, 240, 100, 30);
+        add(toggleConfirmPasswordButton);
 
         // save button
         btnSave = new JButton("Save");
@@ -90,10 +108,15 @@ public class EX_ResetPassword extends JFrame {
     public String getUserMail(){return userEmail;}
     
     public JTextField getOTPInput(){return OTPInput;}
-    public JTextField NewPasswdInput(){return NewPasswdInput;}
-    public JTextField NewPasswdConfirmInput(){return NewPasswdConfirmInput;}
-    
+    public JButton getBtnResendOtp() { return btnResendOtp; }
+
+    public JPasswordField NewPasswdInput(){return NewPasswdInput;}
+    public JPasswordField NewPasswdConfirmInput(){return NewPasswdConfirmInput;}
+    public JButton getToggleNewPasswordButton(){ return toggleNewPasswordButton; }
+    public JButton getToggleConfirmPasswordButton(){ return toggleConfirmPasswordButton; }
+
      public JButton getBtnSave() {return btnSave; }
     public JButton getBtnCancel() {return btnCancel;}
+    public String getSentOTP(){return sentOTP;}
     
 }

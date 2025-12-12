@@ -6,5 +6,5 @@ ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqdda
 ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqddann215@gmail.com; ROLE : Academic Officer
 ID USER : testaaz123; PASSWORD : @azArty12345; FULL NAME : swann; EMAIL : swsqqddann21s5@gmail.com; ROLE : Course Administrator
 
-ID USER : swannvrg; PASSWORD : @azArty12345; FULL NAME : swann; EMAIL : swannvrg@gmail.com; ROLE : Course Administrator
+ID USER : swannvrg; PASSWORD : @Azerty1234; FULL NAME : swann; EMAIL : swannvrg@gmail.com; ROLE : Course Administrator
 ID USER : swannBV123; PASSWORD : @Azerty1234; FULL NAME : Swann Baste Vergez; EMAIL : swanntest@gmail.com; ROLE : Academic Officer

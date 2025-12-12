@@ -189,6 +189,75 @@ public class Ex_write {
 
        return updated;
    }
+   
+   public static boolean updateUserPassword(String idUser, String newPassword) {
+
+        File inputFile = new File("login.txt");
+        File tempFile  = new File("login_temp.txt");
+
+        boolean updated = false;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+
+                if (line.contains("ID USER : " + idUser)) {
+
+                    // On récupère les champs existants (full name, email, role)
+                    String fullName = "";
+                    String email = "";
+                    String role = "";
+                    String currentId = idUser;
+
+                    String[] parts = line.split(";");
+                    for (String p : parts) {
+                        p = p.trim();
+                        if (p.startsWith("ID USER :")) {
+                            currentId = p.substring("ID USER :".length()).trim();
+                        } else if (p.startsWith("FULL NAME :")) {
+                            fullName = p.substring("FULL NAME :".length()).trim();
+                        } else if (p.startsWith("EMAIL :")) {
+                            email = p.substring("EMAIL :".length()).trim();
+                        } else if (p.startsWith("ROLE :")) {
+                            role = p.substring("ROLE :".length()).trim();
+                        }
+                    }
+
+                    // Réécrit la ligne avec le nouveau password uniquement
+                    String newLine =
+                            "ID USER : " + currentId +
+                            "; PASSWORD : " + newPassword +
+                            "; FULL NAME : " + fullName +
+                            "; EMAIL : " + email +
+                            "; ROLE : " + role;
+
+                    writer.write(newLine);
+                    writer.newLine();
+                    updated = true;
+
+                } else {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        if (updated) {
+            if (!inputFile.delete()) return false;
+            if (!tempFile.renameTo(inputFile)) return false;
+        } else {
+            tempFile.delete();
+        }
+
+        return updated;
+    }
 
     
 }

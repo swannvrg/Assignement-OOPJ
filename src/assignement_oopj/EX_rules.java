@@ -85,4 +85,15 @@ public class EX_rules {
         return false;
     }
     
+    public static boolean isOtpValid(String sentOtp, String userOtp) {
+        if (sentOtp == null || userOtp == null) return false;
+
+        String exp = sentOtp.trim();
+        String usr = userOtp.trim();
+
+        if (exp.isEmpty() || usr.isEmpty()) return false;
+
+        return exp.equals(usr);
+    }
+    
 }
