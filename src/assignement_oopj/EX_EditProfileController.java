@@ -133,18 +133,42 @@ public class EX_EditProfileController {
                         JOptionPane.ERROR_MESSAGE);
             }
         });
-        view.getBtnResetPasswd().addActionListener(e->{
-             String id_user = view.getOriginalId();
-            // close the window
-            view.dispose();
-            // open edit popup
-           EX_ResetPassword editView = new EX_ResetPassword(id_user);
+       view.getBtnResetPasswd().addActionListener(e -> {
+            String id_user = view.getOriginalId();  // Récupérer l'ID utilisateur
 
-            // call the controller
-            new EX_ResetPasswordController(editView);
+            // Récupérer l'email de l'utilisateur depuis la base de données
+            String userEmail = Ex_write.getUserData(id_user)[1];  // Récupère l'email via l'ID utilisateur
+
+            // Générer un token (OTP)
+            String token = EmailHandler.generateOTP();  // Génère un OTP unique pour le réinitialisation du mot de passe
+
+            // Créer une instance de EmailService pour envoyer l'email
+            EmailService emailService = new EmailService();
+
+            // Appeler la méthode pour envoyer l'email avec le token
+            boolean emailSent = emailService.sendPasswordResetToken(userEmail, token);
+
+            // Vérifier si l'email a bien été envoyé
+            if (emailSent) {
+                System.out.println("email send");
+                    // Fermer la fenêtre actuelle
+                view.dispose();
+
+                // Ouvrir la vue de réinitialisation de mot de passe
+                EX_ResetPassword editView = new EX_ResetPassword(id_user);
+
+                // Appeler le contrôleur pour la vue de réinitialisation
+                new EX_ResetPasswordController(editView);
+                // Log de l'action (réinitialisation du mot de passe)
+            Ex_write.logTimestamp(id_user, "OTP SENT RESET PASSWORD");
+            } else {
+                    JOptionPane.showMessageDialog(null, "There was an issue sending the OTP. Please try again.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
             
-            // log EDIT with new id
-             Ex_write.logTimestamp(id_user, "OPE RESET PASSWORD");
+
+            
         });
+
     }
 }

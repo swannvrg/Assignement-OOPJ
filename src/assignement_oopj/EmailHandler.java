@@ -25,13 +25,19 @@ public class EmailHandler {
         this.userPassword = userPassword;
         loadEmailLogs(); // Load logs on initialization
     }
+    
+    public static String generateOTP() {
+        // Génère un OTP aléatoire à 6 chiffres
+        int otp = (int)(Math.random() * 999999);  // Valeur aléatoire entre 0 et 999999
+        return String.format("%06d", otp);  // Retourne l'OTP formaté à 6 chiffres
+    }
 
     // Configures the SMTP server for email sending
     private Session configureServer() {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
-        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.host", "smtp.office365.com");
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.ssl.protocols", "TLSv1.2");
 

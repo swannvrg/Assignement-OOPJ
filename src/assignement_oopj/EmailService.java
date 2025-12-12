@@ -5,7 +5,7 @@
 package assignement_oopj;
 
 public class EmailService {
-    private String userEmail = "marcelariandy@gmail.com"; // Your email
+   private String userEmail = "marcelariandy@gmail.com"; // Your email
     private String userPassword = System.getenv("GMAIL_APP_PASSWORD"); // Get app password from environment variable
     private EmailHandler emailHandler; // EmailHandler instance for actual email sending
 
@@ -29,7 +29,7 @@ public class EmailService {
     }
 
     // Method to send eligibility report email with attachment
-    public boolean sendEligibilityReport(Student student, String pdfPath) {
+    /*public boolean sendEligibilityReport(Student student, String pdfPath) {
         if (student == null || student.getEmail() == null || student.getEmail().trim().isEmpty()) {
             return false;
         }
@@ -60,7 +60,7 @@ public class EmailService {
                 "Academic Office";
 
         return emailHandler.sendEmail(to, subject, body, "RecoveryPlanReport", pdfPath);
-    }
+    }*/
 
     // Method to send password reset token email
     public boolean sendPasswordResetToken(String to, String token) {
