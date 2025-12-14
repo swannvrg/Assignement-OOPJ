@@ -9,6 +9,7 @@ package assignement_oopj;
  * @author swann
  */
 
+import java.util.List;
 import javax.swing.*;
 
 public class EX_DashboardController {
@@ -27,7 +28,7 @@ public class EX_DashboardController {
         //change the language of dialog popup to be sure there are in english cause mine are in french
         UIManager.put("OptionPane.yesButtonText", "Yes");
         UIManager.put("OptionPane.noButtonText", "No");
-        UIManager.put("OptionPane.okButtonText", "Validate");
+        UIManager.put("OptionPane.okButtonText", "OK");
         UIManager.put("OptionPane.cancelButtonText", "Cancel");
         
         // show menu pop up
@@ -152,26 +153,29 @@ public class EX_DashboardController {
         
         // listener to open Mail Log Check 
         view.getBtnMailLogCheck().addActionListener(e -> {
-            String id_user = view.getIdUser();
-            
-            // close the window
-            //view.dispose(); //uncomment when its work to close the dashboard popup
-            
-            System.out.println("btn mail log fonctionne");
-            
-            //binary log
-            String log_action_user = "OPEN MAIL LOG CHECK";
-            Ex_write.logTimestamp(id_user, log_action_user);
+            // Fetch the email logs (from your storage or file)
+            List<EmailLog> emailLogs = EmailService.getEmailLogs();
+
+            // Create the panel to display emails
+            ViewEmailPanel emailPanel = new ViewEmailPanel(emailLogs);
+            view.dispose();
+
+            // Create a frame for the email view
+            JFrame emailFrame = new JFrame("All Sent Emails");
+            emailFrame.setSize(600, 400);
+            emailFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            emailFrame.add(emailPanel);
+            emailFrame.setLocationRelativeTo(null);  // Center the frame
+            emailFrame.setVisible(true);
         });
         
          // listener to open Academic Performance Reporting
-        view.getEmailNotification().addActionListener(e -> {
+        view.getAcademicPerformanceReport().addActionListener(e -> {
             String id_user = view.getIdUser();
-            // close the window //when its work to close the dashboard popup
-            view.dispose();
             
              // Ouvre la fenêtre CRS Report & Email System
               new PerfReportGUI(id_user);
+              view.dispose();
             
             //binary log
             String log_action_user = "OPEN ACADEMIC PERFORMANCE REPORTING";
@@ -181,9 +185,9 @@ public class EX_DashboardController {
          // listener to open Egilibity Check
         view.getEligibityCheck().addActionListener(e -> {
             String id_user = view.getIdUser();
-            // close the window //when its work to close the dashboard popup
-            //view.dispose();
-            System.out.println("btn eligibity fonctionne");
+
+            new MainMenu(id_user).setVisible(true);
+            view.dispose();
             
             //binary log
             String log_action_user = "OPEN ELIGIBITY CHECK";
@@ -193,15 +197,28 @@ public class EX_DashboardController {
          // listener to open Course Recovery
         view.getCourseRecovery().addActionListener(e -> {
             String id_user = view.getIdUser();
-           
-            view.dispose();
-            System.out.println("btn Course Recovery fonctionne");
+
             //lauch recovery plan
             SwingUtilities.invokeLater(() -> {
                 new RecoveryPlanGUI(id_user);
             });
+            view.dispose();
+
             //binary log
             String log_action_user = "OPEN COURSE RECOVERY";
+            Ex_write.logTimestamp(id_user, log_action_user);
+        });
+        
+         // listener to open User Management
+        view.getUserManagement().addActionListener(e -> {
+            String id_user = view.getIdUser();
+            
+            EX_UserManagement um = new EX_UserManagement(id_user);
+            new EX_UserManagementController(um);
+            view.dispose();
+
+            //binary log
+            String log_action_user = "OPEN USER MANAGEMENT";
             Ex_write.logTimestamp(id_user, log_action_user);
         });
 
@@ -213,19 +230,27 @@ public class EX_DashboardController {
 
         // Hide all buttons first
         view.getBtnMailLogCheck().setVisible(false);
-        view.getEmailNotification().setVisible(false);
+        view.getAcademicPerformanceReport().setVisible(false);
         view.getEligibityCheck().setVisible(false);
         view.getCourseRecovery().setVisible(false);
+        view.getUserManagement().setVisible(false);
+        
 
         // Show buttons depending on role
         if (role.equals("Academic Officer")) {
+            
             view.getBtnMailLogCheck().setVisible(true);
-            view.getEmailNotification().setVisible(true);
+            view.getAcademicPerformanceReport().setVisible(true);
+            view.getEligibityCheck().setVisible(true);
+            view.getCourseRecovery().setVisible(true);
+            view.getUserManagement().setVisible(true);
         }
 
         if (role.equals("Course Administrator")) {
+            view.getBtnMailLogCheck().setVisible(true);
+            view.getAcademicPerformanceReport().setVisible(true);
             view.getEligibityCheck().setVisible(true);
-            view.getCourseRecovery().setVisible(true);
+            view.getUserManagement().setVisible(true);
         }
     }
     

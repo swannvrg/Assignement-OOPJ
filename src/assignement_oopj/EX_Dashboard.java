@@ -21,9 +21,8 @@ public class EX_Dashboard extends JFrame {
     private JLabel welcomeLabel, roleLabel;
     private final String idUser; //id from constructor
     private final String roleUser; //same for the role
-    private JButton btnMailLogCheck, EmailNotification; //btn for academic officer view
-    private JButton EligibityCheck, CourseRecovery; //btn for course admin view
-    
+    private JButton btnMailLogCheck, AcademicPerformanceReport, EligibityCheck, CourseRecovery, UserManagement; //btn for features
+  
    
 
    
@@ -35,7 +34,7 @@ public class EX_Dashboard extends JFrame {
         this.roleUser = data [2];
 
         setTitle("Dashboard");
-        setSize(400, 250);
+        setSize(400, 400);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -78,27 +77,32 @@ public class EX_Dashboard extends JFrame {
     popup.addSeparator();
     popup.add(itemLogout);
 
-    // btn for academic officer
+    // btn for Mail Log Check
     btnMailLogCheck = new JButton("Mail Log Check");
-    btnMailLogCheck.setBounds(100, 90, 200, 30);
+    btnMailLogCheck.setBounds(75, 90, 250, 30);
     btnMailLogCheck.setVisible(false);
     add(btnMailLogCheck);
-
-    EmailNotification = new JButton("Academic Perf Report ");
-    EmailNotification.setBounds(100, 130, 200, 30);
-    EmailNotification.setVisible(false);
-    add(EmailNotification);
-
-    // btn for course admin
+    // btn for Academic Performace Report
+   AcademicPerformanceReport = new JButton("Academic Performace Report ");
+    AcademicPerformanceReport.setBounds(75, 130, 250, 30);
+    AcademicPerformanceReport.setVisible(false);
+    add(AcademicPerformanceReport);
+    // btn for Eligibility Check
     EligibityCheck = new JButton("Eligibility Check");
-    EligibityCheck.setBounds(100, 90, 200, 30);
+    EligibityCheck.setBounds(75, 170, 250, 30);
     EligibityCheck.setVisible(false);
     add(EligibityCheck);
-
+    // btn for Academic Performace Report
+    UserManagement = new JButton("User Management");
+    UserManagement.setBounds(75, 210, 250, 30);
+    UserManagement.setVisible(false);
+    add(UserManagement);
+    // btn for Academic Performace Report
     CourseRecovery = new JButton("Course Recovery Plan");
-    CourseRecovery.setBounds(100, 130, 200, 30);
+    CourseRecovery.setBounds(75, 250, 250, 30);
     CourseRecovery.setVisible(false);
     add(CourseRecovery);
+    
 }
     // method to open the dashboard from the connexion window
     public static void openAfterLoginWindow(String id_user) {
@@ -121,8 +125,9 @@ public class EX_Dashboard extends JFrame {
     public String getUserRole() { return roleUser; }
     
     public JButton getBtnMailLogCheck() { return btnMailLogCheck; }
-    public JButton getEmailNotification() { return EmailNotification; }
+    public JButton getAcademicPerformanceReport() { return AcademicPerformanceReport; }
     public JButton getEligibityCheck() { return EligibityCheck; }
     public JButton getCourseRecovery() { return CourseRecovery; }
+    public JButton getUserManagement() { return UserManagement; }
  
 }

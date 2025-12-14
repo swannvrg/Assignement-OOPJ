@@ -15,6 +15,10 @@ public class EX_EditProfileController {
 
     private final EX_EditProfile view;
     private String originalEmail;  // pour savoir si l'email a changé
+    private String expectedEmailOtp = null;
+    private Timer otpTimer;
+    private int otpSeconds = 0;
+
 
     public EX_EditProfileController(EX_EditProfile view) {
         this.view = view;
@@ -104,13 +108,31 @@ public class EX_EditProfileController {
                 return;
             }
 
-            // if email already use = error
-            if (!newEmail.equals(originalEmail) && EX_rules.exist_Email(newEmail)) {
-                JOptionPane.showMessageDialog(view,
-                        "The email is already used.",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
-                return;
+             // invalid email format = error
+           if (!newEmail.equals(originalEmail)) {
+
+                String otpUser = view.getOtpField().getText().trim();
+
+                if (otpUser.isEmpty()) {
+                    JOptionPane.showMessageDialog(view,
+                            "Please enter the OTP code sent to your new email.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (expectedEmailOtp == null) {
+                    JOptionPane.showMessageDialog(view,
+                            "Please request an OTP first (click OTP).",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (!EX_OTPController.isOtpValid(expectedEmailOtp, otpUser)) {
+                    JOptionPane.showMessageDialog(view,
+                            "Invalid OTP code.",
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
             }
 
             
@@ -126,6 +148,7 @@ public class EX_EditProfileController {
                 //open dashboard with the update of user id
                 EX_Dashboard.openAfterLoginWindow(newId);
                 view.dispose();
+                expectedEmailOtp = null;
             } else {
                 JOptionPane.showMessageDialog(view,
                         "Update failed.",
@@ -171,6 +194,101 @@ public class EX_EditProfileController {
 
             
         });
+       
+       view.getBtnEmailOtp().addActionListener(e -> {
+            String newEmail = view.getEmailField().getText().trim();
+
+            if (newEmail.isEmpty()) {
+                JOptionPane.showMessageDialog(view,
+                        "Please enter your email first.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!EX_rules.rule_Email(newEmail)) {
+                JOptionPane.showMessageDialog(view,
+                        "The email format is invalid.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Si l’email n’a pas changé, pas besoin d’OTP
+            if (newEmail.equals(originalEmail)) {
+                JOptionPane.showMessageDialog(view,
+                        "This is your current email. No verification needed.",
+                        "Info", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            // Si email déjà utilisé
+            if (EX_rules.exist_Email(newEmail)) {
+                JOptionPane.showMessageDialog(view,
+                        "The email is already used.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            startOtpCooldown();
+
+            String token = EmailService.generateOTP(); // ou EmailService.generateOTP()
+            EmailService emailService = new EmailService();
+
+            SwingWorker<Boolean, Void> worker = new SwingWorker<>() {
+                @Override
+                protected Boolean doInBackground() {
+                    return emailService.sendEmailVerificationToken(newEmail, token);
+                }
+
+                @Override
+                protected void done() {
+                    try {
+                        boolean sent = get();
+                        if (sent) {
+                            expectedEmailOtp = token;          // ✅ invalide l'ancien automatiquement
+                            view.getOtpField().setText("");    // ✅ force la saisie du nouveau
+                            JOptionPane.showMessageDialog(view,
+                                    "Verification OTP sent to your new email.",
+                                    "Info", JOptionPane.INFORMATION_MESSAGE);
+                            Ex_write.logTimestamp(view.getOriginalId(), "EMAIL OTP SENT - EDIT");
+                        } else {
+                            JOptionPane.showMessageDialog(view,
+                                    "There was an issue sending the OTP. Please try again.",
+                                    "Error", JOptionPane.ERROR_MESSAGE);
+                            Ex_write.logTimestamp(view.getOriginalId(), "EMAIL OTP FAILED - EDIT");
+                        }
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(view,
+                                "Unexpected error while sending OTP.",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                    }
+                }
+            };
+
+            worker.execute();
+        });
 
     }
+    private void startOtpCooldown() {
+        otpSeconds = 30;
+        JButton b = view.getBtnEmailOtp();
+        b.setEnabled(false);
+        b.setText("OTP (" + otpSeconds + ")");
+
+        if (otpTimer != null && otpTimer.isRunning()) otpTimer.stop();
+
+        otpTimer = new Timer(1000, ev -> {
+            otpSeconds--;
+            if (otpSeconds <= 0) {
+                otpTimer.stop();
+                b.setEnabled(true);
+                b.setText("OTP");
+            } else {
+                b.setText("" + otpSeconds );
+            }
+        });
+        otpTimer.start();
+    }
+
+    
 }

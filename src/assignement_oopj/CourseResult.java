@@ -1,38 +1,40 @@
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package assignement_oopj;
 
 public class CourseResult {
-    private String studentName;
-    private String courseName;
-    private double score;
 
-    public CourseResult(String studentName, String courseName, double score) {
-        this.studentName = studentName;
-        this.courseName = courseName;
-        this.score = score;
+    private String courseCode;
+    private String courseTitle;
+    private int creditHours;
+    private String grade;
+    private double gradePoint;
+
+    public CourseResult(String courseCode, String courseTitle,
+                        int creditHours, String grade, double gradePoint) {
+        this.courseCode = courseCode;
+        this.courseTitle = courseTitle;
+        this.creditHours = creditHours;
+        this.grade = grade;
+        this.gradePoint = gradePoint;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public String getCourseCode() {
+        return courseCode;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public String getCourseTitle() {
+        return courseTitle;
     }
 
-    public double getScore() {
-        return score;
+    public int getCreditHours() {
+        return creditHours;
+    }
+
+    public String getGrade() {
+        return grade;
     }
 
     public double getGradePoint() {
-        if (score >= 85) return 4.0;
-        if (score >= 75) return 3.5;
-        if (score >= 65) return 3.0;
-        if (score >= 50) return 2.0;
-        return 0.0;
+        return gradePoint;
     }
 }
+

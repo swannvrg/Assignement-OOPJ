@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Properties;
 import jakarta.mail.*;
 import jakarta.mail.internet.*;
+import java.util.List;
 
 public class EmailService {
     private static final String userEmail = "l9gic2k@gmail.com"; // Your Gmail address
@@ -23,9 +24,9 @@ public class EmailService {
     }
     
     public static String generateOTP() {
-       
-        int otp = (int)(Math.random() * 999999);  
-        return String.format("%06d", otp);  
+    // Generate random number    
+        int otp = (int)(Math.random() * 999999); // generate random number between 0 and 999999 
+        return String.format("%06d", otp); // number generated only 6 digits  
 }
 
     // Configures the SMTP server for email sending
@@ -122,13 +123,67 @@ public class EmailService {
     }
 }
 
-// Method to send password reset token email
-public boolean sendPasswordResetToken(String to, String token) {
-    String body = "You requested a password reset.\n\n" +
-                  "Your reset token is: " + token + "\n\n" +
-                  "If you did not request this, please ignore this email.";
+    // Method to send password reset token email
+    public boolean sendPasswordResetToken(String to, String token) {
 
-    // Call the sendEmail method to send the password reset email
-    return sendEmail(to, "Password Reset Token", body, "PasswordResetToken", null);
+        String subject = "Password Reset Verification Code";
+
+        String body =
+                "Hello,\n\n" +
+                "We received a request to reset the password for your account.\n\n" +
+                "Your verification code (OTP) is:\n" +
+                "    " + token + "\n\n" +
+                "This code is valid for a short time and can be used only once.\n\n" +
+                "If you did not request a password reset, please ignore this email.\n" +
+                "For your security, do not share this code with anyone.\n\n" +
+                "Best regards,\n" +
+                "Support Team";
+
+        // Send the email (no attachment)
+        return sendEmail(to, subject, body, "PasswordResetToken", null);
+    }
+    
+    // Method to send email verification OTP (account confirmation)
+    public boolean sendEmailVerificationToken(String to, String token) {
+
+        String subject = "Email Verification Code";
+
+        String body =
+                "Hello,\n\n" +
+                "Thank you for creating an account.\n\n" +
+                "To confirm your email address, please enter the verification code (OTP) below:\n" +
+                "    " + token + "\n\n" +
+                "This code is valid for a short time and can be used only once.\n\n" +
+                "If you did not create an account with this email, please ignore this message.\n" +
+                "For your security, do not share this code with anyone.\n\n" +
+                "Best regards,\n" +
+                "Support Team";
+
+        // Send the email (no attachment)
+        return sendEmail(to, subject, body, "EmailVerificationToken", null);
+    }
+    
+        // Method to get all email logs
+    public static List<EmailLog> getEmailLogs() {
+        List<EmailLog> emailLogs = new ArrayList<>();
+        File file = new File("email_logs.txt");
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",", 5);
+                if (parts.length == 5) {
+                    String to = parts[0];
+                    String subject = parts[1];
+                    String type = parts[2];
+                    long timestamp = Long.parseLong(parts[3]);
+                    String status = parts[4];
+                    emailLogs.add(new EmailLog(to, subject, type, new Date(timestamp), status));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return emailLogs;
     }
 }

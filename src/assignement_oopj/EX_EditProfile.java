@@ -10,13 +10,14 @@ package assignement_oopj;
  */
 
 import javax.swing.*;
+import java.awt.*;
 
 public class EX_EditProfile extends JFrame {
 
-    private JTextField idField, nameField, emailField;
+    private JTextField idField, nameField, emailField,otpField;
     private JRadioButton courseAdministrator, academicOfficer;
-    private JButton btnSave, btnCancel, btnResetPasswd;
-  
+    private JButton btnSave, btnCancel, btnResetPasswd, btnEmailOtp;
+    private JLabel otpLabel, otpHintLabel;
 
     private final String originalId;  // ID utilisé pour retrouver l'utilisateur
 
@@ -24,7 +25,7 @@ public class EX_EditProfile extends JFrame {
         this.originalId = idUser;
 
         setTitle("Edit Profile");
-        setSize(400, 450);
+        setSize(400, 550);
         setLayout(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
@@ -33,66 +34,89 @@ public class EX_EditProfile extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    // interface component of the edit page
-    private void initUI() {
-        JLabel idLabel = new JLabel("User ID:");
-        idLabel.setBounds(30, 20, 300, 30);
-        add(idLabel);
+    
 
-        idField = new JTextField();
-        idField.setBounds(30, 50, 300, 30);
-        add(idField);
+private void initUI() {
+    setLayout(null);
 
-        //full name
-        JLabel nameLabel = new JLabel("Full Name:");
-        nameLabel.setBounds(30, 90, 300, 30);
-        add(nameLabel);
+    JLabel idLabel = new JLabel("User ID:");
+    idLabel.setBounds(30, 20, 300, 30);
+    add(idLabel);
 
-        nameField = new JTextField();
-        nameField.setBounds(30, 120, 300, 30);
-        add(nameField);
+    idField = new JTextField();
+    idField.setBounds(30, 50, 300, 30);
+    add(idField);
 
-        //email
-        JLabel emailLabel = new JLabel("Email:");
-        emailLabel.setBounds(30, 160, 300, 30);
-        add(emailLabel);
+    // Full name
+    JLabel nameLabel = new JLabel("Full Name:");
+    nameLabel.setBounds(30, 90, 300, 30);
+    add(nameLabel);
 
-        emailField = new JTextField();
-        emailField.setBounds(30, 190, 300, 30);
-        add(emailField);
+    nameField = new JTextField();
+    nameField.setBounds(30, 120, 300, 30);
+    add(nameField);
 
-        //role
-        JLabel roleLabel = new JLabel("Role:");
-        roleLabel.setBounds(30, 230, 300, 30);
-        add(roleLabel);
+    // Email
+    JLabel emailLabel = new JLabel("Email:");
+    emailLabel.setBounds(30, 160, 300, 30);
+    add(emailLabel);
 
-        courseAdministrator = new JRadioButton("Course Administrator");
-        academicOfficer     = new JRadioButton("Academic Officer");
-        courseAdministrator.setBounds(30, 260, 200, 30);
-        academicOfficer.setBounds(30, 290, 200, 30);
+    emailField = new JTextField();
+    emailField.setBounds(30, 190, 220, 30);
+    add(emailField);
 
-        ButtonGroup groupRole = new ButtonGroup();
-        groupRole.add(courseAdministrator);
-        groupRole.add(academicOfficer);
+    // otp button
+    btnEmailOtp = new JButton("OTP");
+    btnEmailOtp.setBounds(260, 190, 70, 30);
+    add(btnEmailOtp);
 
-        add(courseAdministrator);
-        add(academicOfficer);
-        
-        //reset password
-        btnResetPasswd = new JButton("Reset your Password here");
-        btnResetPasswd.setBounds(90, 330,200,30);
-        add(btnResetPasswd);
+    // otp label
+    otpLabel = new JLabel("OTP code :");
+    otpLabel.setBounds(30, 230, 300, 30);
+    add(otpLabel);
 
-        //save button
-        btnSave = new JButton("Save");
-        btnSave.setBounds(60, 370, 100, 30);
-        add(btnSave);
+    otpField = new JTextField();
+    otpField.setBounds(30, 260, 300, 30);
+    add(otpField);
 
-        //cancel button
-        btnCancel = new JButton("Cancel");
-        btnCancel.setBounds(220, 370, 100, 30);
-        add(btnCancel);
-    }
+    // Lebel otp text
+    otpHintLabel = new JLabel("Click OTP, then check your email to get the verification code.");
+    otpHintLabel.setBounds(30, 292, 380, 15);
+    otpHintLabel.setFont(new Font("Arial", Font.ITALIC, 11));
+    add(otpHintLabel);
+
+    // Role (descend)
+    JLabel roleLabel = new JLabel("Role:");
+    roleLabel.setBounds(30, 315, 300, 30);
+    add(roleLabel);
+
+    courseAdministrator = new JRadioButton("Course Administrator");
+    academicOfficer     = new JRadioButton("Academic Officer");
+    courseAdministrator.setBounds(30, 345, 220, 30);
+    academicOfficer.setBounds(30, 375, 220, 30);
+
+    ButtonGroup groupRole = new ButtonGroup();
+    groupRole.add(courseAdministrator);
+    groupRole.add(academicOfficer);
+
+    add(courseAdministrator);
+    add(academicOfficer);
+
+    // Reset password
+    btnResetPasswd = new JButton("Reset Password here");
+    btnResetPasswd.setBounds(90, 415, 220, 30);
+    add(btnResetPasswd);
+
+    // Save / Cancel
+    btnSave = new JButton("Save");
+    btnSave.setBounds(60, 455, 100, 30);
+    add(btnSave);
+
+    btnCancel = new JButton("Cancel");
+    btnCancel.setBounds(220, 455, 100, 30);
+    add(btnCancel);
+}
+
 
     // getter for the controller
 
@@ -105,6 +129,11 @@ public class EX_EditProfile extends JFrame {
     public JButton getBtnSave() {return btnSave; }
     public JButton getBtnCancel() {return btnCancel;}
     public JButton getBtnResetPasswd(){return btnResetPasswd;}
+    public JTextField getOtpField() { return otpField; }
+    public JLabel getOtpLabel() { return otpLabel; }
+    public JLabel getOtpHintLabel() { return otpHintLabel; }
+    public JButton getBtnEmailOtp() { return btnEmailOtp; }
+
  
     // method to pre-fill all fields
     public void setUserData(String id, String fullName, String email, String role) {

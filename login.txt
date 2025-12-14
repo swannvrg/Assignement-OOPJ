@@ -1,10 +1,4 @@
-ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqddann215@gmail.com; ROLE : Academic Officer
-ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqddann215@gmail.com; ROLE : Academic Officer
-ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqddann215@gmail.com; ROLE : Academic Officer
-ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqddann215@gmail.com; ROLE : Academic Officer
-ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqddann215@gmail.com; ROLE : Academic Officer
-ID USER : aaaaaadd; PASSWORD : @azArty12345; FULL NAME : zdzdd; EMAIL : swsqqddann215@gmail.com; ROLE : Academic Officer
 ID USER : testaaz123; PASSWORD : @azArty12345; FULL NAME : swann; EMAIL : swsqqddann21s5@gmail.com; ROLE : Course Administrator
-
-ID USER : swannvrg; PASSWORD : @Azerty1234; FULL NAME : swann; EMAIL : swannvrg@gmail.com; ROLE : Course Administrator
 ID USER : swannBV123; PASSWORD : @Azerty1234; FULL NAME : Swann Baste Vergez; EMAIL : swanntest@gmail.com; ROLE : Academic Officer
+ID USER : snn123; PASSWORD : @Azerty112; FULL NAME : swann; EMAIL : swnnpro69@gmail.com; ROLE : Academic Officer
+ID USER : azer12; PASSWORD : @Azerty1234; FULL NAME : test; EMAIL : bd2b779449@webxio.pro; ROLE : Academic Officer

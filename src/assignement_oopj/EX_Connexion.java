@@ -16,12 +16,12 @@ public class EX_Connexion extends JFrame {
 
     // component
     private JRadioButton login, sign;
-    private JTextField nameInput, inputID, emailInput;
+    private JTextField nameInput, inputID, emailInput, otpInput;
     private JPasswordField inputPasswd, confirmPasswdInput;
-    private JButton togglePasswordButton, toggleConfirmPasswordButton;
+    private JButton toggleOTPButton, togglePasswordButton, toggleConfirmPasswordButton;
     private JRadioButton courseAdministrator, academicOfficer;
     private JButton btnOk, btnCancel;
-    private JLabel nameLabel, idLabel, emailLabel, passwdLabel, confirmPasswdLabel, roleLabel;
+    private JLabel nameLabel, idLabel, emailLabel, passwdLabel, confirmPasswdLabel, roleLabel,otpLabel, otpHintLabel ;
 
     // constructor
     public EX_Connexion() {
@@ -39,6 +39,8 @@ public class EX_Connexion extends JFrame {
     
     // interface component of the connexion page
     private void initUI() {
+        setLayout(null);
+
         // Title
         JLabel titre = new JLabel("REGISTER");
         titre.setBounds(200, 5, 200, 30);
@@ -47,8 +49,8 @@ public class EX_Connexion extends JFrame {
         // btn login/sign up
         login = new JRadioButton("LOGIN");
         sign  = new JRadioButton("SIGN UP", true);
-        login.setBounds(100, 25, 100, 30);
-        sign.setBounds(250, 25, 100, 30);
+        login.setBounds(100, 30, 100, 30);
+        sign.setBounds(250, 30, 120, 30);
         ButtonGroup groupLog = new ButtonGroup();
         groupLog.add(login);
         groupLog.add(sign);
@@ -79,41 +81,62 @@ public class EX_Connexion extends JFrame {
         add(emailLabel);
         add(emailInput);
 
-        // Password input
+        // Send OTP button (à droite de l'email)
+        toggleOTPButton = new JButton("OTP");
+        toggleOTPButton.setBounds(360, 150, 70, 30);
+        add(toggleOTPButton);
+
+        // OTP input 
+        otpLabel = new JLabel("OTP CODE");
+        otpLabel.setBounds(50, 190, 100, 30);
+        otpInput = new JTextField();
+        otpInput.setBounds(150, 190, 200, 30);
+        add(otpLabel);
+        add(otpInput);
+
+        // 
+        otpHintLabel = new JLabel("Click OTP, then check your email to get the verification code.");
+        otpHintLabel.setBounds(50, 220, 320, 15);
+        otpHintLabel.setFont(new Font("Arial", Font.ITALIC, 11));
+        add(otpHintLabel);
+
+        // Password input 
         passwdLabel = new JLabel("PASSWORD");
-        passwdLabel.setBounds(50, 190, 100, 30);
+        passwdLabel.setBounds(50, 240, 100, 30);
         inputPasswd = new JPasswordField();
-        inputPasswd.setBounds(150, 190, 200, 30);
+        inputPasswd.setBounds(150, 240, 200, 30);
         add(passwdLabel);
         add(inputPasswd);
 
         // Show password
         togglePasswordButton = new JButton("Show");
-        togglePasswordButton.setBounds(360, 190, 70, 30);
+        togglePasswordButton.setBounds(360, 240, 70, 30);
         add(togglePasswordButton);
 
         // Confirm password
         confirmPasswdLabel = new JLabel("CONFIRM IT");
-        confirmPasswdLabel.setBounds(50, 230, 150, 30);
+        confirmPasswdLabel.setBounds(50, 280, 150, 30);
         confirmPasswdInput = new JPasswordField();
-        confirmPasswdInput.setBounds(150, 230, 200, 30);
+        confirmPasswdInput.setBounds(150, 280, 200, 30);
         add(confirmPasswdLabel);
         add(confirmPasswdInput);
 
         toggleConfirmPasswordButton = new JButton("Show");
-        toggleConfirmPasswordButton.setBounds(360, 230, 70, 30);
+        toggleConfirmPasswordButton.setBounds(360, 280, 70, 30);
         add(toggleConfirmPasswordButton);
 
         // Roles
         roleLabel = new JLabel("ROLES");
-        roleLabel.setBounds(50, 270, 100, 30);
+        roleLabel.setBounds(50, 320, 100, 30);
         courseAdministrator = new JRadioButton("Course Administrator");
         academicOfficer     = new JRadioButton("Academic Officer", true);
-        courseAdministrator.setBounds(150, 270, 200, 30);
-        academicOfficer.setBounds(150, 310, 200, 30);
+        courseAdministrator.setBounds(150, 320, 220, 30);
+        academicOfficer.setBounds(150, 360, 220, 30);
+
         ButtonGroup groupRole = new ButtonGroup();
         groupRole.add(courseAdministrator);
         groupRole.add(academicOfficer);
+
         add(roleLabel);
         add(courseAdministrator);
         add(academicOfficer);
@@ -121,8 +144,8 @@ public class EX_Connexion extends JFrame {
         // Buttons
         btnOk = new JButton("OK");
         btnCancel = new JButton("CANCEL");
-        btnOk.setBounds(50, 380, 150, 40);
-        btnCancel.setBounds(250, 380, 150, 40);
+        btnOk.setBounds(50, 420, 150, 40);
+        btnCancel.setBounds(250, 420, 150, 40);
         add(btnOk);
         add(btnCancel);
     }
@@ -135,6 +158,10 @@ public class EX_Connexion extends JFrame {
     public JTextField getNameInput() { return nameInput; }
     public JTextField getInputID() { return inputID; }
     public JTextField getEmailInput() { return emailInput; }
+    
+    public JLabel getOtpLabel(){ return otpLabel; }
+    public JTextField getOtpInput(){ return otpInput; }
+    public JButton getToggleOTPButton(){ return toggleOTPButton; }
 
     public JPasswordField getInputPasswd() { return inputPasswd; }
     public JPasswordField getConfirmPasswdInput() { return confirmPasswdInput; }
@@ -154,6 +181,7 @@ public class EX_Connexion extends JFrame {
     public JLabel getPasswdLabel() { return passwdLabel; }
     public JLabel getConfirmPasswdLabel() { return confirmPasswdLabel; }
     public JLabel getRoleLabel() { return roleLabel; }
+    public JLabel getOTPHintLabel() {return otpHintLabel;}
 
     // Main to lauch the app
     public static void main(String[] args) {
